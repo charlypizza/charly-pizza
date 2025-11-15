@@ -83,7 +83,7 @@ export default function HeroSection({ onScroll }: HeroSectionProps) {
   if (loading) {
     return (
       <section className="relative h-screen w-full overflow-hidden bg-gray-900 flex items-center justify-center">
-        <div className="text-white text-2xl">Chargement...</div>
+        <div className="text-white text-2xl">...</div>
       </section>
     );
   }

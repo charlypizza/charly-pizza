@@ -66,7 +66,7 @@ export default function DeliverySection() {
   if (loading) {
     return (
       <section id="commande" className="bg-[#bd0926] pt-20 pb-20 px-6 min-h-screen flex items-center justify-center">
-        <div className="text-white text-2xl">Chargement...</div>
+        <div className="text-white text-2xl"></div>
       </section>
     );
   }

@@ -124,7 +124,7 @@ export default function MenuSection() {
   if (loading) {
     return (
       <section id="menu" className="min-h-screen flex items-center justify-center bg-gray-900">
-        <div className="text-white text-2xl">Chargement du menu...</div>
+        <div className="text-white text-2xl"></div>
       </section>
     );
   }

@@ -46,7 +46,7 @@ export default function InstagramSection() {
   if (loading) {
     return (
       <section className="py-20 bg-white min-h-screen flex items-center justify-center">
-        <div className="text-gray-900 text-2xl">Chargement...</div>
+        <div className="text-gray-900 text-2xl"></div>
       </section>
     );
   }

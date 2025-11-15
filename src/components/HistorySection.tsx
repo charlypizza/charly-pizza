@@ -39,7 +39,7 @@ export default function HistorySection() {
   if (loading) {
     return (
       <section id="histoire" className="relative w-full overflow-hidden z-10 h-64 bg-gray-900 flex items-center justify-center">
-        <div className="text-white text-2xl">Chargement...</div>
+        <div className="text-white text-2xl"></div>
       </section>
     );
   }

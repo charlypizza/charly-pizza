@@ -48,7 +48,7 @@ export default function GallerySection() {
   if (loading) {
     return (
       <section id="galerie" className="w-full h-screen bg-gray-900 flex items-center justify-center">
-        <div className="text-white text-2xl">Chargement de la galerie...</div>
+        <div className="text-white text-2xl"></div>
       </section>
     );
   }

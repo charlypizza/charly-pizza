@@ -118,7 +118,7 @@ export default function Footer() {
   if (loading) {
     return (
       <footer id="contact" className="bg-[#bd0926] text-white py-12 min-h-[400px] flex items-center justify-center">
-        <div className="text-white text-xl">Chargement...</div>
+        <div className="text-white text-xl"></div>
       </footer>
     );
   }
