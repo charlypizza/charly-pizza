@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Menu, X, ShoppingBag } from 'lucide-react';
+import { client } from '../sanity/client';
+import { FOOTER_QUERY } from '../sanity/queries';
+import type { Footer } from '../sanity/types';
 
 interface NavigationProps {
   onMenuClick: (section: string) => void;
@@ -8,6 +11,23 @@ interface NavigationProps {
 export default function Navigation({ onMenuClick }: NavigationProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [logo, setLogo] = useState<string>('https://lh3.googleusercontent.com/pw/AP1GczMCCRC_9NYtXy8BHffQlk0hpS4dHOYNPIfyovxbBl2f2EwFp3GACVRZo4YzV-hvHzKuAsAcTcAPcFw2F8W4k-apbD6dTmw5pCoRqIuTfSGei5ZHukRR0LlnlmC_bCl0x-tO0eXro7mlRwlyA6Scymrw=w422-h417-s-no-gm?authuser=0');
+
+  useEffect(() => {
+    const fetchLogo = async () => {
+      try {
+        const data = await client.fetch<Footer>(FOOTER_QUERY);
+        if (data?.logo) {
+          setLogo(data.logo);
+        }
+      } catch (error) {
+        console.error('Error fetching logo:', error);
+        // Keep default logo on error
+      }
+    };
+
+    fetchLogo();
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -46,7 +66,7 @@ export default function Navigation({ onMenuClick }: NavigationProps) {
             className="absolute left-1/2 transform -translate-x-1/2 hover:scale-105 transition-transform duration-300"
           >
             <img
-              src="https://lh3.googleusercontent.com/pw/AP1GczMCCRC_9NYtXy8BHffQlk0hpS4dHOYNPIfyovxbBl2f2EwFp3GACVRZo4YzV-hvHzKuAsAcTcAPcFw2F8W4k-apbD6dTmw5pCoRqIuTfSGei5ZHukRR0LlnlmC_bCl0x-tO0eXro7mlRwlyA6Scymrw=w422-h417-s-no-gm?authuser=0"
+              src={logo}
               alt="Pizza Charly"
               className="h-12 md:h-16 w-auto"
             />

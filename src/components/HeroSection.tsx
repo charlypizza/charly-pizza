@@ -4,6 +4,30 @@ import { client } from '../sanity/client';
 import { HERO_QUERY } from '../sanity/queries';
 import type { Hero } from '../sanity/types';
 
+// Static fallback data
+const fallbackData = {
+  title: 'Pizza Charly',
+  subtitle: 'Trois lieux, une même passion.',
+  tagline: 'Depuis 1962, Marseille a sa pizza.',
+  slides: [
+    {
+      _key: '1',
+      image: 'https://lh3.googleusercontent.com/pw/AP1GczPz-y-4dVprD-3CCSXSi8OjZGUpTspYU4Bbhv0h8lQ4EjNf_qWS3kyIfrVlf2wXVLYjaEZ2t0w41_5B3CVb5jkAjOBCf-ey3G3WhAMDwDk2KBZ0Dkf8ABX9zt_ytlHT0ej3jz-_ddoPtM36hCvR_OSn=w1920-h1280-s-no-gm?authuser=0',
+      alt: 'Pizza artisanale cuite au feu de bois chez Pizza Charly Marseille',
+    },
+    {
+      _key: '2',
+      image: 'https://lh3.googleusercontent.com/pw/AP1GczNSIqdaHuhVKRkpeQNiiVAyKEzVHc26o5N1Qc7EYeGR1lFj-yCrTEnsokOsphuBm2SB_YMLebwAe6a_veZX9wfq7EfZxy5PfgyoIZ2oIzNSL-eX6HeH1YdNcSFlJhgekvZiYS2DyTSHsBdxUtflUVPE=w1202-h1602-s-no-gm?authuser=0',
+      alt: 'Pizza margherita fraîchement préparée - Pizza Charly',
+    },
+    {
+      _key: '3',
+      image: 'https://lh3.googleusercontent.com/pw/AP1GczPzRtEWsCvA3kvrPe5yWVY1yptz8lyLVqBXY0-lntABTK9BVUBpCZWgqFU6G-3hGjQwL2bxGXZ8oUTzFRMslra3xI1xV0qVJHnnj1rspwFFjnmEdR-HWJLe2amiy2O6SQ2b4Ut7djPZp4Yn6eE0qJVk=w1068-h1602-s-no-gm?authuser=0',
+      alt: 'Pizza italienne authentique avec ingrédients frais - Pizzeria Marseille',
+    },
+  ],
+};
+
 interface HeroSectionProps {
   onScroll: () => void;
 }
@@ -11,16 +35,21 @@ interface HeroSectionProps {
 export default function HeroSection({ onScroll }: HeroSectionProps) {
   const [currentImage, setCurrentImage] = useState(0);
   const [showButtons, setShowButtons] = useState(false);
-  const [heroData, setHeroData] = useState<Hero | null>(null);
+  const [heroData, setHeroData] = useState<Hero>(fallbackData);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchHeroData = async () => {
       try {
         const data = await client.fetch<Hero>(HERO_QUERY);
-        setHeroData(data);
+        if (data && data.slides && data.slides.length > 0) {
+          setHeroData(data);
+        } else {
+          console.log('No hero data found, using fallback');
+        }
       } catch (error) {
         console.error('Error fetching hero data:', error);
+        // Keep fallback data
       } finally {
         setLoading(false);
       }
@@ -51,7 +80,7 @@ export default function HeroSection({ onScroll }: HeroSectionProps) {
     };
   }, [heroData]);
 
-  if (loading || !heroData) {
+  if (loading) {
     return (
       <section className="relative h-screen w-full overflow-hidden bg-gray-900 flex items-center justify-center">
         <div className="text-white text-2xl">Chargement...</div>
