@@ -10,10 +10,16 @@ import SEOHead from './components/SEOHead';
 import { generateRestaurantSchema, generateFAQSchema, generateBreadcrumbSchema } from './utils/structuredData';
 
 function App() {
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
+  const scrollToSection = (section: string) => {
+    const element = document.getElementById(section);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      const nav = document.querySelector('nav');
+      const navHeight = nav ? nav.offsetHeight : 0;
+      const topPosition = element.offsetTop - navHeight;
+      window.scrollTo({
+        top: topPosition,
+        behavior: 'smooth',
+      });
     }
   };
   
