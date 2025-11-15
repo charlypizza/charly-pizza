@@ -1,27 +1,36 @@
+import { useState, useEffect } from 'react';
 import { MapPin } from 'lucide-react';
-
-const locations = [
-  {
-    name: 'Pizza Charly - Noailles',
-    address: '24 Rue des Feuillants, 13001 Marseille',
-    image: 'https://lh3.googleusercontent.com/pw/AP1GczMCMcZlP6VG9mW4QD6aiRgI0DcyXCmuMIUuITHdjtCTthebiiFeop1TjVmCaRxkd72ep6w_C6dTcpqtOhMJweYC24fHheH48USFi9eFAfFTgqoN_bosllH9Q044l1OOW7Ux2_f-BF3ckh5zkZUmG4zg=w1179-h1465-s-no-gm?authuser=0',
-    mapUrl: 'https://www.google.com/maps/place//data=!4m2!3m1!1s0x12c9c1ff91a737c1:0x3345dd41b7f27e53?sa=X&ved=1t:8290&ictx=111',
-  },
-  {
-    name: 'Pizza Charly - Le Panier',
-    address: '36 Grand Rue, 13002 Marseille',
-    image: 'https://lh3.googleusercontent.com/pw/AP1GczPSvmvJ8Fz9oFjFE-_mvWj49PUGbCz3BRKU39ouc2nA4u3lZxd29eKBPwbXAHco1MvcsmIJPw5Iu4nI8BoDWNRKCNwWlCDOZSGvbDWDmtjgev0DUDHLpys4XFAZ7GUO_K9L3Xdk_XgXzS2SknoMp6ri=w1017-h1113-s-no-gm?authuser=0',
-    mapUrl: 'https://www.google.com/maps/place//data=!4m2!3m1!1s0x12c9c1006e176963:0xdd38ffa50a0b943?sa=X&ved=1t:8290&ictx=111',
-  },
-  {
-    name: 'Pizza Charly - Opéra',
-    address: '7 Pl. Général de Gaulle, 13001 Marseille',
-    image: 'https://lh3.googleusercontent.com/pw/AP1GczNJMD1sz_llOAyIRhTWku6fEBEBhZ561FmbDqf7biTV1c4h8xt37aedXKnfNkz0ql6SomPXvu6RIFT9-XvV0K0jYrT3u_Euh82WPS1RVEEKK7z5h3Q8xmOvA779-vd5jFFWUkW9oIkGD1tohJaoaN0e=w1172-h1075-s-no-gm?authuser=0',
-    mapUrl: 'https://www.google.com/maps/place//data=!4m2!3m1!1s0x12c9c174a8e83295:0x8fc77e9bbca3dd19?sa=X&ved=1t:8290&ictx=111',
-  },
-];
+import { client } from '../sanity/client';
+import { LOCATIONS_QUERY } from '../sanity/queries';
+import type { Location } from '../sanity/types';
 
 export default function DeliverySection() {
+  const [locations, setLocations] = useState<Location[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchLocations = async () => {
+      try {
+        const data = await client.fetch<Location[]>(LOCATIONS_QUERY);
+        setLocations(data);
+      } catch (error) {
+        console.error('Error fetching locations:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLocations();
+  }, []);
+
+  if (loading) {
+    return (
+      <section id="commande" className="bg-[#bd0926] pt-20 pb-20 px-6 min-h-screen flex items-center justify-center">
+        <div className="text-white text-2xl">Chargement...</div>
+      </section>
+    );
+  }
+
   return (
     <section id="commande" className="bg-[#bd0926] pt-20 pb-20 px-6">
       <div className="container mx-auto">
@@ -31,9 +40,9 @@ export default function DeliverySection() {
         <p className="text-xl text-white/90 text-center mb-16">Click & Collect ou Livraison</p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {locations.map((location, index) => (
+          {locations.map((location) => (
             <div
-              key={index}
+              key={location._id}
               className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 group"
             >
               <div className="relative h-64 overflow-hidden">
@@ -55,10 +64,10 @@ export default function DeliverySection() {
               <div className="p-6">
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">{location.name}</h3>
                 <p className="text-gray-600 mb-6">{location.address}</p>
-                {location.name === 'Pizza Charly - Le Panier' ? (
+                {location.deliveryUrl && location.clickCollectUrl ? (
                   <div className="flex gap-3">
                     <a
-                      href="https://pizzacharly.fr/order/?type=delivery"
+                      href={location.deliveryUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex-1 bg-[#bd0926] text-white py-3 px-4 rounded-full font-semibold hover:bg-[#9d0720] transition-all duration-300 hover:scale-105 text-center"
@@ -66,7 +75,7 @@ export default function DeliverySection() {
                       Livraison
                     </a>
                     <a
-                      href="https://pizzacharly.fr/order/?type=pickup"
+                      href={location.clickCollectUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex-1 bg-[#bd0926] text-white py-3 px-4 rounded-full font-semibold hover:bg-[#9d0720] transition-all duration-300 hover:scale-105 text-center"
@@ -74,10 +83,10 @@ export default function DeliverySection() {
                       Click & Collect
                     </a>
                   </div>
-                ) : (
+                ) : location.deliveryUrl ? (
                   <div className="flex justify-center">
                     <a
-                      href="https://pizzacharly.fr/order/?type=delivery"
+                      href={location.deliveryUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-1/2 bg-[#bd0926] text-white py-3 px-4 rounded-full font-semibold hover:bg-[#9d0720] transition-all duration-300 hover:scale-105 text-center"
@@ -85,7 +94,7 @@ export default function DeliverySection() {
                       Livraison
                     </a>
                   </div>
-                )}
+                ) : null}
               </div>
             </div>
           ))}

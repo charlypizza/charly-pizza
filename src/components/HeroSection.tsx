@@ -1,11 +1,8 @@
 import { useState, useEffect } from 'react';
 import { ChevronDown } from 'lucide-react';
-
-const images = [
-  'https://lh3.googleusercontent.com/pw/AP1GczPz-y-4dVprD-3CCSXSi8OjZGUpTspYU4Bbhv0h8lQ4EjNf_qWS3kyIfrVlf2wXVLYjaEZ2t0w41_5B3CVb5jkAjOBCf-ey3G3WhAMDwDk2KBZ0Dkf8ABX9zt_ytlHT0ej3jz-_ddoPtM36hCvR_OSn=w1920-h1280-s-no-gm?authuser=0',
-  'https://lh3.googleusercontent.com/pw/AP1GczNSIqdaHuhVKRkpeQNiiVAyKEzVHc26o5N1Qc7EYeGR1lFj-yCrTEnsokOsphuBm2SB_YMLebwAe6a_veZX9wfq7EfZxy5PfgyoIZ2oIzNSL-eX6HeH1YdNcSFlJhgekvZiYS2DyTSHsBdxUtflUVPE=w1202-h1602-s-no-gm?authuser=0',
-  'https://lh3.googleusercontent.com/pw/AP1GczPzRtEWsCvA3kvrPe5yWVY1yptz8lyLVqBXY0-lntABTK9BVUBpCZWgqFU6G-3hGjQwL2bxGXZ8oUTzFRMslra3xI1xV0qVJHnnj1rspwFFjnmEdR-HWJLe2amiy2O6SQ2b4Ut7djPZp4Yn6eE0qJVk=w1068-h1602-s-no-gm?authuser=0',
-];
+import { client } from '../sanity/client';
+import { HERO_QUERY } from '../sanity/queries';
+import type { Hero } from '../sanity/types';
 
 interface HeroSectionProps {
   onScroll: () => void;
@@ -14,10 +11,29 @@ interface HeroSectionProps {
 export default function HeroSection({ onScroll }: HeroSectionProps) {
   const [currentImage, setCurrentImage] = useState(0);
   const [showButtons, setShowButtons] = useState(false);
+  const [heroData, setHeroData] = useState<Hero | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const fetchHeroData = async () => {
+      try {
+        const data = await client.fetch<Hero>(HERO_QUERY);
+        setHeroData(data);
+      } catch (error) {
+        console.error('Error fetching hero data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchHeroData();
+  }, []);
+
+  useEffect(() => {
+    if (!heroData?.slides) return;
+
     const interval = setInterval(() => {
-      setCurrentImage((prev) => (prev + 1) % images.length);
+      setCurrentImage((prev) => (prev + 1) % heroData.slides.length);
     }, 5000);
 
     const handleScroll = () => {
@@ -33,20 +49,28 @@ export default function HeroSection({ onScroll }: HeroSectionProps) {
       clearInterval(interval);
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [heroData]);
+
+  if (loading || !heroData) {
+    return (
+      <section className="relative h-screen w-full overflow-hidden bg-gray-900 flex items-center justify-center">
+        <div className="text-white text-2xl">Chargement...</div>
+      </section>
+    );
+  }
 
   return (
     <section className="relative h-screen w-full overflow-hidden">
-      {images.map((img, index) => (
+      {heroData.slides.map((slide, index) => (
         <div
-          key={index}
+          key={slide._key}
           className={`absolute inset-0 transition-opacity duration-1500 ${
             index === currentImage ? 'opacity-100' : 'opacity-0'
           }`}
         >
           <img
-            src={img}
-            alt={index === 0 ? "Pizza artisanale cuite au feu de bois chez Pizza Charly Marseille" : index === 1 ? "Pizza margherita fraîchement préparée - Pizza Charly" : "Pizza italienne authentique avec ingrédients frais - Pizzeria Marseille"}
+            src={slide.image}
+            alt={slide.alt}
             className="w-full h-full object-cover scale-105 animate-zoomSlow"
             loading={index === 0 ? "eager" : "lazy"}
           />
@@ -56,13 +80,13 @@ export default function HeroSection({ onScroll }: HeroSectionProps) {
 
       <div className="absolute inset-0 flex flex-col items-center justify-center text-white z-10">
         <h1 className="text-5xl md:text-7xl font-bold text-center mb-4 animate-fadeInUp">
-          Pizza Charly
+          {heroData.title}
         </h1>
         <p className="text-2xl md:text-3xl text-center mb-2 animate-fadeInUp" style={{ animationDelay: '200ms' }}>
-          Trois lieux, une même passion.
+          {heroData.subtitle}
         </p>
         <p className="text-lg md:text-xl text-center opacity-90 animate-fadeInUp" style={{ animationDelay: '400ms' }}>
-          Depuis 1962, Marseille a sa pizza.
+          {heroData.tagline}
         </p>
 
         <div
@@ -95,7 +119,7 @@ export default function HeroSection({ onScroll }: HeroSectionProps) {
       </button>
 
       <div className="absolute bottom-8 right-8 flex gap-2 z-10">
-        {images.map((_, index) => (
+        {heroData.slides.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentImage(index)}
