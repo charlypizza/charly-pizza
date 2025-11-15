@@ -1,0 +1,39 @@
+# robots.txt for Pizza Charly Marseille
+# https://pizzacharly.fr
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://pizzacharly.fr/sitemap.xml
+
+# Crawl-delay (optional - helps with server load)
+Crawl-delay: 1
+
+# Block access to sensitive areas (if any)
+Disallow: /api/
+Disallow: /admin/
+Disallow: /*.json$
+
+# Allow important resources for rendering
+Allow: /assets/
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.webp$
+Allow: /*.svg$
+
+# Popular search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:geo="http://www.google.com/schemas/sitemap-geo/1.0">
+
+  <!-- Homepage -->
+  <url>
+    <loc>https://pizzacharly.fr</loc>
+    <lastmod>2025-10-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://lh3.googleusercontent.com/pw/AP1GczMCCRC_9NYtXy8BHffQlk0hpS4dHOYNPIfyovxbBl2f2EwFp3GACVRZo4YzV-hvHzKuAsAcTcAPcFw2F8W4k-apbD6dTmw5pCoRqIuTfSGei5ZHukRR0LlnlmC_bCl0x-tO0eXro7mlRwlyA6Scymrw=w422-h417-s-no-gm?authuser=0</image:loc>
+      <image:title>Logo Pizza Charly Marseille</image:title>
+      <image:caption>Pizzeria artisanale depuis 1962</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Menu Section -->
+  <url>
+    <loc>https://pizzacharly.fr#menu</loc>
+    <lastmod>2025-10-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Delivery Section -->
+  <url>
+    <loc>https://pizzacharly.fr#livraison</loc>
+    <lastmod>2025-10-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- History Section -->
+  <url>
+    <loc>https://pizzacharly.fr#histoire</loc>
+    <lastmod>2025-10-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Gallery Section -->
+  <url>
+    <loc>https://pizzacharly.fr#galerie</loc>
+    <lastmod>2025-10-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Instagram Section -->
+  <url>
+    <loc>https://pizzacharly.fr#instagram</loc>
+    <lastmod>2025-10-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Contact Section -->
+  <url>
+    <loc>https://pizzacharly.fr#contact</loc>
+    <lastmod>2025-10-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Restaurant Location: Noailles -->
+  <url>
+    <loc>https://pizzacharly.fr/noailles</loc>
+    <lastmod>2025-10-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <geo:geo>
+      <geo:format>kml</geo:format>
+    </geo:geo>
+  </url>
+
+  <!-- Restaurant Location: Le Panier -->
+  <url>
+    <loc>https://pizzacharly.fr/le-panier</loc>
+    <lastmod>2025-10-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <geo:geo>
+      <geo:format>kml</geo:format>
+    </geo:geo>
+  </url>
+
+  <!-- Restaurant Location: Opéra -->
+  <url>
+    <loc>https://pizzacharly.fr/opera</loc>
+    <lastmod>2025-10-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <geo:geo>
+      <geo:format>kml</geo:format>
+    </geo:geo>
+  </url>
+
+  <!-- Local SEO Keywords -->
+  <url>
+    <loc>https://pizzacharly.fr/pizza-marseille</loc>
+    <lastmod>2025-10-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://pizzacharly.fr/pizzeria-marseille</loc>
+    <lastmod>2025-10-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://pizzacharly.fr/livraison-pizza-marseille</loc>
+    <lastmod>2025-10-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+</urlset>
