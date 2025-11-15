@@ -16,6 +16,7 @@ function App() {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
+  
 
   const restaurantSchema = generateRestaurantSchema();
   const faqSchema = generateFAQSchema();
