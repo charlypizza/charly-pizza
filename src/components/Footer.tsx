@@ -201,14 +201,14 @@ export default function Footer() {
           </div>
 
           <div className="mt-8 flex flex-col md:flex-row justify-between items-center text-sm opacity-70 gap-4">
-            <p>{footerData.copyrightText}</p>
+            <p>© 2025 Pizza Charly. Tous droits réservés.</p>
             <a
               href={footerData.createdByUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1 hover:opacity-70 transition-opacity duration-300 cursor-pointer"
             >
-              {footerData.createdByText} <Heart size={16} className="fill-white" />
+              Created with <Heart size={16} className="fill-white" />by Vasseo
             </a>
           </div>
         </div>
