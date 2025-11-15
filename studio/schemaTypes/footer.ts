@@ -100,25 +100,24 @@ export default defineType({
       name: 'cookieBannerText',
       title: 'Cookie Banner Text',
       type: 'text',
-      validation: (Rule) => Rule.required(),
+      
     }),
     defineField({
       name: 'copyrightText',
       title: 'Copyright Text',
       type: 'string',
-      validation: (Rule) => Rule.required(),
+      
     }),
     defineField({
       name: 'createdByText',
       title: 'Created By Text',
       type: 'string',
-      validation: (Rule) => Rule.required(),
+
     }),
     defineField({
       name: 'createdByUrl',
       title: 'Created By URL',
       type: 'url',
-      validation: (Rule) => Rule.required().uri({ scheme: ['http', 'https'] }),
     }),
   ],
   preview: {
