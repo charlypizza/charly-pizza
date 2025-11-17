@@ -39,12 +39,12 @@ export function generateRestaurantSchema(location?: Location) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Restaurant',
-    '@id': 'https://pizzacharly.fr',
+    '@id': 'https://pizzacharly.com',
     name: 'Pizza Charly',
     image: [
       'https://lh3.googleusercontent.com/pw/AP1GczMCCRC_9NYtXy8BHffQlk0hpS4dHOYNPIfyovxbBl2f2EwFp3GACVRZo4YzV-hvHzKuAsAcTcAPcFw2F8W4k-apbD6dTmw5pCoRqIuTfSGei5ZHukRR0LlnlmC_bCl0x-tO0eXro7mlRwlyA6Scymrw=w422-h417-s-no-gm?authuser=0',
     ],
-    url: 'https://pizzacharly.fr',
+    url: 'https://pizzacharly.com',
     telephone: loc.phone,
     priceRange: '€€',
     servesCuisine: ['Italian', 'Pizza', 'Mediterranean'],
@@ -70,7 +70,7 @@ export function generateRestaurantSchema(location?: Location) {
       closes: hours.closes,
     })),
     sameAs: ['https://www.instagram.com/pizzacharly.officiel/'],
-    hasMenu: 'https://pizzacharly.fr#menu',
+    hasMenu: 'https://pizzacharly.com#menu',
     acceptsReservations: 'True',
     paymentAccepted: 'Cash, Credit Card, Debit Card',
     currenciesAccepted: 'EUR',
@@ -85,7 +85,7 @@ export function generateRestaurantSchema(location?: Location) {
       '@type': 'OrderAction',
       target: {
         '@type': 'EntryPoint',
-        urlTemplate: 'https://pizzacharly.fr#commande',
+        urlTemplate: 'https://pizzacharly.com#commande',
         inLanguage: 'fr',
         actionPlatform: [
           'http://schema.org/DesktopWebPlatform',
@@ -102,7 +102,7 @@ export function generateLocalBusinessSchema(locations: Location[]) {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'Pizza Charly',
-    url: 'https://pizzacharly.fr',
+    url: 'https://pizzacharly.com',
     logo: 'https://lh3.googleusercontent.com/pw/AP1GczMCCRC_9NYtXy8BHffQlk0hpS4dHOYNPIfyovxbBl2f2EwFp3GACVRZo4YzV-hvHzKuAsAcTcAPcFw2F8W4k-apbD6dTmw5pCoRqIuTfSGei5ZHukRR0LlnlmC_bCl0x-tO0eXro7mlRwlyA6Scymrw=w422-h417-s-no-gm?authuser=0',
     foundingDate: '1962',
     description: 'Pizzeria artisanale marseillaise depuis 1962. Trois restaurants à Marseille proposant des pizzas authentiques préparées avec des ingrédients frais.',
